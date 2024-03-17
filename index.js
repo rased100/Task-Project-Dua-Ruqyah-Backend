@@ -3,7 +3,7 @@ const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8080;
 
 // database connection
 const database = new sqlite3.Database("./dua_main.sqlite");
