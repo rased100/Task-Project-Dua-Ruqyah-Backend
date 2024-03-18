@@ -26,9 +26,20 @@ app.get("/", (req, res) => {
   res.send("duaruqyah node server running");
 });
 
-// Retrieve all categories
+// categories
 app.get("/api/categories", (req, res) => {
   database.all("SELECT * FROM category", (error, rows) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
+
+// subcategories
+app.get("/api/subcategories", (req, res) => {
+  database.all("SELECT * FROM sub_category", (error, rows) => {
     if (error) {
       res.status(500).json({ error: error.message });
       return;
