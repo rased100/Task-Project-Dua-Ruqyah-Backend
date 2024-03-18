@@ -75,6 +75,50 @@ app.get("/api/dua", (req, res) => {
   });
 });
 
+// duas by category ID
+app.get("/api/dua/:categoryId", (req, res) => {
+  const categoryId = req.params.categoryId;
+  database.all(
+    "SELECT * FROM dua WHERE cat_id = ?",
+    [categoryId],
+    (error, rows) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+        return;
+      }
+
+      if (!rows || rows.length === 0) {
+        res.status(404).json({ error: "Dua not found" });
+        return;
+      }
+
+      res.json(rows);
+    }
+  );
+});
+
+// duas by subcategory ID
+app.get("/api/dua/subCategory/:subCategoryId", (req, res) => {
+  const subCategoryId = req.params.subCategoryId;
+  database.all(
+    "SELECT * FROM dua WHERE subcat_id = ?",
+    [subCategoryId],
+    (error, rows) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+        return;
+      }
+
+      if (!rows || rows.length === 0) {
+        res.status(404).json({ error: "Dua not found" });
+        return;
+      }
+
+      res.json(rows);
+    }
+  );
+});
+
 // server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
