@@ -6,7 +6,16 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 // database connection
-const database = new sqlite3.Database("./dua_main.sqlite");
+// const database = new sqlite3.Database("./dua_main.sqlite");
+
+// SQLite database connection
+const database = new sqlite3.Database("./dua_main.sqlite", (error) => {
+  if (error) {
+    console.error("Error connecting to database:", error.message);
+  } else {
+    console.log("Connected to the database.");
+  }
+});
 
 // Middleware
 app.use(express.json());
