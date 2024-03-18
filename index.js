@@ -26,6 +26,17 @@ app.get("/", (req, res) => {
   res.send("duaruqyah node server running");
 });
 
+// Retrieve all categories
+app.get("/api/categories", (req, res) => {
+  database.all("SELECT * FROM category", (error, rows) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
+
 // server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
