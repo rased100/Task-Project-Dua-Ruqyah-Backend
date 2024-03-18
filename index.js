@@ -48,6 +48,33 @@ app.get("/api/subcategories", (req, res) => {
   });
 });
 
+// subcategories by category ID
+app.get("/api/subcategories/:categoryId", (req, res) => {
+  const categoryId = req.params.categoryId;
+  database.all(
+    "SELECT * FROM sub_category WHERE cat_id = ?",
+    [categoryId],
+    (error, rows) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+        return;
+      }
+      res.json(rows);
+    }
+  );
+});
+
+// all duas
+app.get("/api/dua", (req, res) => {
+  database.all("SELECT * FROM dua", (error, rows) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
+
 // server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
